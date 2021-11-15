@@ -1,0 +1,52 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+// File Example1.idl
+[
+	// A unique identifier that distinguishes this
+	// interface from other interfaces.
+	uuid(ef349889-0b3c-12d1-79be-01244e8eabc3),
+
+	// This is version 1.0 of this interface.
+	version(1.0),
+
+	// This interface will use an implicit binding
+	// handle named hExample1Binding.
+	implicit_handle(handle_t hExample1Binding)
+]
+interface Example1 // The interface is named Example1
+{
+	const unsigned int cMaxBuf = 65534;
+	// A function that takes a zero-terminated string.
+	void Output(
+		[in, string] const char* szOutput);
+	int CopyOnClient(
+		[string][in] const  char* path,
+		[out] int buf[cMaxBuf],
+		[out] unsigned int* length_buf,
+		[in] int index,
+		[out] int* check_eof
+	);
+	int MakeFileOnServer(
+		[string][in] const char* FileName,
+		[in] int buf[cMaxBuf],
+		[in] int length_buf,
+		[in] int index,
+		[in] int check_eof
+	);
+
+	int DeleteFileOnServer(
+		[string][in] const char* path,
+		[in] int index
+	);
+
+	int MakeClientOnServer(
+		[string][in]  const char* login,
+		[string][in]  const char* password,
+		[out] int* index
+	);
+
+	int ClientOut(
+		[in] int index
+	);
+}
